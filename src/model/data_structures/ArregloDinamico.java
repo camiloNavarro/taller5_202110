@@ -79,10 +79,10 @@ public class ArregloDinamico implements IArregloDinamico {
 	 * @return elemento de consulta. null si no hay elemento en posicion.
 	 */
 
-	public String darElemento(int i) {
+	public String darElemento(int i) 
+	{
 		// TODO implementar
-		String elementoConsulta = elementos [i];
-		return elementoConsulta;
+		return elementos [i];
 	}
 
 	/**
@@ -91,17 +91,17 @@ public class ArregloDinamico implements IArregloDinamico {
 	 * @return elemento encontrado en el arreglo (si existe). null si no se encontro el dato.
 	 */
 
-	public String buscar(String dato) {
+	public String buscar(String dato) 
+	{
 		// TODO implementar
 		// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
 		String elementoBuscado = null;
 		boolean encontro = false;
 		for (int i = 0; i < tamanoAct && !encontro; i++)
 		{
-			String elementoAct = elementos [i];
-			if (dato.compareTo(elementoAct) == 0)
+			if (dato.compareTo(elementos [i]) == 0)
 			{
-				elementoBuscado = elementoAct;
+				elementoBuscado = elementos [i];
 				encontro = true;
 			}
 		}
@@ -122,10 +122,9 @@ public class ArregloDinamico implements IArregloDinamico {
 		boolean encontro = false;
 		for (int i = 0; i < tamanoAct && !encontro; i++)
 		{
-			String elementoAct = elementos [i];
-			if (dato.compareTo(elementoAct) == 0)
+			if (dato.compareTo(elementos [i]) == 0)
 			{
-				datoEliminado = elementoAct;
+				datoEliminado = elementos [i];
 				encontro = true;
 				for (int j = i; j < tamanoAct - 1; j++)
 				{
