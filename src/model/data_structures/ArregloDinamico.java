@@ -43,7 +43,7 @@ public class ArregloDinamico <T> implements IArregloDinamico <T>{
 		if ( tamanoAct == tamanoMax )
 		{  // caso de arreglo lleno (aumentar tamaNo)
 			tamanoMax = 2 * tamanoMax;
-			T [ ] copia = elementos;
+			T [] copia = elementos;
 			elementos = (T[]) new Object[tamanoMax];
 			for ( int i = 0; i < tamanoAct; i++)
 			{
