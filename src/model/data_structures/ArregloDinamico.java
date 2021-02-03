@@ -7,7 +7,7 @@ package model.data_structures;
  * @author Fernando De la Rosa
  *
  */
-public class ArregloDinamico implements IArregloDinamico {
+public class ArregloDinamico <T> implements IArregloDinamico <T>{
 	/**
 	 * Capacidad maxima del arreglo
 	 */
@@ -19,7 +19,7 @@ public class ArregloDinamico implements IArregloDinamico {
 	/**
 	 * Arreglo de elementos de tamaNo maximo
 	 */
-	private String elementos[ ];
+	private T elementos[ ];
 
 	/**
 	 * Construir un arreglo con la capacidad maxima inicial.
@@ -27,7 +27,7 @@ public class ArregloDinamico implements IArregloDinamico {
 	 */
 	public ArregloDinamico( int max )
 	{
-		elementos = new String[max];
+		elementos = (T[]) new Object[max];
 		tamanoMax = max;
 		tamanoAct = 0;
 	}
@@ -38,13 +38,13 @@ public class ArregloDinamico implements IArregloDinamico {
 	 * @param dato nuevo elemento
 	 */
 
-	public void agregar( String dato )
+	public void agregar( T dato )
 	{
 		if ( tamanoAct == tamanoMax )
 		{  // caso de arreglo lleno (aumentar tamaNo)
 			tamanoMax = 2 * tamanoMax;
-			String [ ] copia = elementos;
-			elementos = new String[tamanoMax];
+			T [ ] copia = elementos;
+			elementos = (T[]) new Object[tamanoMax];
 			for ( int i = 0; i < tamanoAct; i++)
 			{
 				elementos[i] = copia[i];
@@ -79,7 +79,7 @@ public class ArregloDinamico implements IArregloDinamico {
 	 * @return elemento de consulta. null si no hay elemento en posicion.
 	 */
 
-	public String darElemento(int i) 
+	public T darElemento(int i) 
 	{
 		// TODO implementar
 		return elementos [i];
@@ -91,15 +91,15 @@ public class ArregloDinamico implements IArregloDinamico {
 	 * @return elemento encontrado en el arreglo (si existe). null si no se encontro el dato.
 	 */
 
-	public String buscar(String dato) 
+	public T buscar(T dato) 
 	{
 		// TODO implementar
 		// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
-		String elementoBuscado = null;
+		T elementoBuscado = null;
 		boolean encontro = false;
 		for (int i = 0; i < tamanoAct && !encontro; i++)
 		{
-			if (dato.compareTo(elementos [i]) == 0)
+			if (elementos [i].equals(dato))
 			{
 				elementoBuscado = elementos [i];
 				encontro = true;
@@ -115,14 +115,14 @@ public class ArregloDinamico implements IArregloDinamico {
 	 * @return dato eliminado
 	 */
 
-	public String eliminar(String dato) {
+	public T eliminar(T dato) {
 		// TODO implementar
 		// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
-		String datoEliminado = null;
+		T datoEliminado = null;
 		boolean encontro = false;
 		for (int i = 0; i < tamanoAct && !encontro; i++)
 		{
-			if (dato.compareTo(elementos [i]) == 0)
+			if (dato.equals(elementos [i]))
 			{
 				datoEliminado = elementos [i];
 				encontro = true;
