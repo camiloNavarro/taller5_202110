@@ -134,4 +134,17 @@ public class ArregloDinamico <T> implements IArregloDinamico <T>{
 		}
 		return datoEliminado;
 	}
+	
+	/**
+	 * Invertir los datos del arreglo.
+	 */
+	public void invertir ()
+	{
+	  for (int i = 0; i < tamanoAct/2; i ++)
+	  {
+	     T cambio = elementos [i];
+	     elementos [i] = elementos [tamanoAct -1 -i];
+	     elementos [tamanoAct -1 -i] = cambio;
+	  }
+	}
 }
