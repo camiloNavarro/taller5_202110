@@ -7,7 +7,7 @@ package model.data_structures;
  * @author Fernando De la Rosa
  *
  */
-public class ArregloDinamico <T> implements IArregloDinamico <T>{
+public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinamico <T>{
 	/**
 	 * Capacidad maxima del arreglo
 	 */
@@ -27,7 +27,7 @@ public class ArregloDinamico <T> implements IArregloDinamico <T>{
 	 */
 	public ArregloDinamico( int max )
 	{
-		elementos = (T[]) new Object[max];
+		elementos = (T[]) new Comparable [max];
 		tamanoMax = max;
 		tamanoAct = 0;
 	}
@@ -44,7 +44,7 @@ public class ArregloDinamico <T> implements IArregloDinamico <T>{
 		{  // caso de arreglo lleno (aumentar tamaNo)
 			tamanoMax = 2 * tamanoMax;
 			T [] copia = elementos;
-			elementos = (T[]) new Object[tamanoMax];
+			elementos = (T[]) new Comparable [tamanoMax];
 			for ( int i = 0; i < tamanoAct; i++)
 			{
 				elementos[i] = copia[i];
@@ -99,7 +99,7 @@ public class ArregloDinamico <T> implements IArregloDinamico <T>{
 		boolean encontro = false;
 		for (int i = 0; i < tamanoAct && !encontro; i++)
 		{
-			if (elementos [i].equals(dato))
+			if (elementos [i].compareTo(dato)==0)
 			{
 				elementoBuscado = elementos [i];
 				encontro = true;
@@ -122,7 +122,7 @@ public class ArregloDinamico <T> implements IArregloDinamico <T>{
 		boolean encontro = false;
 		for (int i = 0; i < tamanoAct && !encontro; i++)
 		{
-			if (dato.equals(elementos [i]))
+			if (dato.compareTo(elementos[i])==0)
 			{
 				datoEliminado = elementos [i];
 				encontro = true;
@@ -135,6 +135,7 @@ public class ArregloDinamico <T> implements IArregloDinamico <T>{
 		return datoEliminado;
 	}
 	
+<<<<<<< HEAD
 	/**
 	 * Invertir los datos del arreglo.
 	 */
@@ -146,5 +147,8 @@ public class ArregloDinamico <T> implements IArregloDinamico <T>{
 	     elementos [i] = elementos [tamanoAct -1 -i];
 	     elementos [tamanoAct -1 -i] = cambio;
 	  }
+=======
+
+>>>>>>> rama_2
 	}
 }
