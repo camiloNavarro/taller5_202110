@@ -135,7 +135,6 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 		return datoEliminado;
 	}
 	
-<<<<<<< HEAD
 	/**
 	 * Invertir los datos del arreglo.
 	 */
@@ -147,8 +146,6 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 	     elementos [i] = elementos [tamanoAct -1 -i];
 	     elementos [tamanoAct -1 -i] = cambio;
 	  }
-=======
 
->>>>>>> rama_2
 	}
 }

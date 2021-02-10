@@ -85,9 +85,17 @@ public class Controller {
 					view.printMessage("--------- \nContenido del Arreglo: ");
 					view.printModelo(modelo);
 					view.printMessage("Numero actual de elementos " + modelo.darTamano() + "\n---------");						
-					break;	
+					break;
 					
 				case 6: 
+					view.printMessage("--------- \n Contenido sin invertir: \n---------"); 
+					view.printModelo(modelo);
+					view.printMessage("--------- \n Contenido invertido: \n---------"); 
+					modelo.invertirContenido();
+					view.printModelo(modelo);
+					break;	
+					
+				case 7: 
 					view.printMessage("--------- \n Hasta pronto !! \n---------"); 
 					lector.close();
 					fin = true;

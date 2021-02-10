@@ -43,15 +43,9 @@ public interface IArregloDinamico <T extends Comparable<T>>{
 	 */
 	T eliminar(T dato);
 	
-<<<<<<< HEAD
 	/**
 	 * Invertir los datos del arreglo.
 	 */
 	
 	public void invertir ();
-	
-=======
-	public void invertir();
->>>>>>> rama_2
-
 }

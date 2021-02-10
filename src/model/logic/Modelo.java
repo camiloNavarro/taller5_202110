@@ -67,6 +67,14 @@ public class Modelo {
 	{
 		return datos.eliminar(dato);
 	}
-
-
+	
+	public void invertirContenido ()
+	{
+		datos.invertir();
+	}
+	
+	public String darElemento(int i)
+	{
+		return (String) datos.darElemento(i);
+	}
 }

@@ -19,7 +19,8 @@ public class View
 			System.out.println("3. Buscar String");
 			System.out.println("4. Eliminar String");
 			System.out.println("5. Imprimir el Arreglo");
-			System.out.println("6. Exit");
+			System.out.println("6. Invertir e imprimir el Arreglo");
+			System.out.println("7. Exit");
 			System.out.println("Dar el numero de opcion a resolver, luego oprimir tecla Return: (e.g., 1):");
 		}
 
@@ -31,5 +32,10 @@ public class View
 		public void printModelo(Modelo modelo)
 		{
 			// TODO implementar
+			for (int i = 0; i< modelo.darTamano(); i++)
+			{
+				String elemento = modelo.darElemento(i);
+				System.out.println(elemento);
+			}
 		}
 }
