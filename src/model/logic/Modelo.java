@@ -1,5 +1,8 @@
 package model.logic;
 
+import java.io.File;
+import java.io.FileReader;
+
 import model.data_structures.ArregloDinamico;
 import model.data_structures.IArregloDinamico;
 
@@ -12,6 +15,8 @@ public class Modelo {
 	 * Atributos del modelo del mundo
 	 */
 	private IArregloDinamico<String> datos;
+	
+	public static String ARCHIVO_DETAILS = "./data/videos-small.csv";
 	
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
@@ -66,6 +71,12 @@ public class Modelo {
 	public String eliminar(String dato)
 	{
 		return datos.eliminar(dato);
+	}
+	
+	public void cargarDatos(){
+		final File archivo1 = new File(Modelo.ARCHIVO_DETAILS);
+		FileReader fr1 = null;
+		
 	}
 	
 	public void invertirContenido ()
