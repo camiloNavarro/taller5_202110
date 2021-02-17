@@ -23,12 +23,10 @@ public class Controller {
 		modelo = new Modelo();
 	}
 		
-	public void run() throws Exception 
+	public void run()
 	{
 		Scanner lector = new Scanner(System.in);
 		boolean fin = false;
-		String dato = "";
-		String respuesta = "";
 
 		while( !fin ){
 			view.printMenu();
@@ -36,20 +34,43 @@ public class Controller {
 			int option = lector.nextInt();
 			switch(option){
 				case 1:
-					view.printMessage("cargar datos ");
+					view.printMessage("Cargando en lista encadenada ");
 				    long startTime = System.currentTimeMillis();
-				    modelo.cargarDatos(); 
+				    modelo.cargarVideosLista(); 
 				    long endTime = System.currentTimeMillis();
 				    long delta= endTime-startTime;
-				    view.printMessage("el tiempo de carga es: "+delta);
-				    String prim=modelo.darCatalogo().videos.darElemento(0).darTitulo();
-				    int tam=modelo.darCatalogo().videos.darTamano();
-				    String ult=modelo.darCatalogo().videos.darElemento(tam).darTitulo();
-				    view.printMessage("el primer video es: "+prim);
-				    view.printMessage("el ultimo video es: "+ult);
+				    
+				    
+				    String firstTitle = modelo.darVideosLista().firstElement().darTitulo();
+				    String lastTitle = modelo.darVideosLista().lastElement().darTitulo();
+				    int size = modelo.darVideosLista().size();
+				    
+				    view.printMessage("El primer video es: "+ firstTitle);
+				    view.printMessage("El ultimo video es: "+ lastTitle);
+				    view.printMessage("Cantidad de videos: " + size);
+				    view.printMessage("El tiempo de carga es de: "+delta);
+					break;
+					
+				case 2:
+					view.printMessage("Cargando en arreglo dinamico ");
+				    long startTime2 = System.currentTimeMillis();
+				    modelo.cargarVideosDinamico(); 
+				    long endTime2 = System.currentTimeMillis();
+				    long delta2= endTime2-startTime2;
+				    
+				    
+				    String firstTitle2 = modelo.darVideosDinamico().darElemento(0).darTitulo();
+				    int tamAct = modelo.darVideosDinamico().darTamano();
+				    String lastTitle2 = modelo.darVideosDinamico().darElemento(tamAct).darTitulo();
+				    int size2 = modelo.darVideosDinamico().darTamano();
+				    
+				    view.printMessage("El primer video es: "+ firstTitle2);
+				    view.printMessage("El ultimo video es: "+ lastTitle2);
+				    view.printMessage("Cantidad de videos: " + size2);
+				    view.printMessage("El tiempo de carga es de: "+delta2);
 					break;
 
-				case 2:
+				case 3:
 					view.printMessage("--------- \n Hasta pronto !! \n---------"); 
 					lector.close();
 					fin = true;

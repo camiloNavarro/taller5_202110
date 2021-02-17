@@ -7,7 +7,7 @@ package model.data_structures;
  * @author Fernando De la Rosa
  *
  */
-public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinamico <T>{
+public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>{
 	/**
 	 * Capacidad maxima del arreglo
 	 */
@@ -32,6 +32,115 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 		tamanoAct = 0;
 	}
 
+	public void addFirst(T elemento)
+	{
+		//verificar!
+		
+		
+		if ( tamanoAct == tamanoMax )
+		{  // caso de arreglo lleno (aumentar tamaNo)
+			tamanoMax = 2 * tamanoMax;
+			T [] copia = elementos;
+			elementos = (T[]) new Comparable [tamanoMax];
+			for ( int i = 0; i < tamanoAct; i++)
+			{
+				elementos[i] = copia[i];
+			} 
+			System.out.println("Arreglo lleno: " + tamanoAct + " - Arreglo duplicado: " + tamanoMax);
+		}
+		
+		T [] movido = elementos;
+		elementos = (T[]) new Comparable [tamanoMax];
+		for ( int i = 0; i < tamanoAct; i++)
+		{
+			elementos[i+1] = movido[i];
+		} 
+		elementos[0] = elemento;
+		tamanoAct++;
+	}
+	
+	public void addLast(T elemento)
+	{
+		//verificar!
+		
+		if ( tamanoAct == tamanoMax )
+		{  // caso de arreglo lleno (aumentar tamaNo)
+			tamanoMax = 2 * tamanoMax;
+			T [] copia = elementos;
+			elementos = (T[]) new Comparable [tamanoMax];
+			for ( int i = 0; i < tamanoAct; i++)
+			{
+				elementos[i] = copia[i];
+			} 
+			System.out.println("Arreglo lleno: " + tamanoAct + " - Arreglo duplicado: " + tamanoMax);
+		}	
+		elementos[tamanoAct] = elemento;
+		tamanoAct++;
+	}
+	
+	public void insertElement(T element, int pos)
+	{
+		//implementar
+	}
+	
+	public T removeFirst( )
+	{
+		//implementar
+	}
+	
+	public T removeLast( ) 
+	{
+		//implementar
+	}
+	
+	public T deleteElement( int pos) 
+	{
+		//implementar
+	}
+	
+	public T firstElement( )
+	{
+		//implementar
+	}
+	
+	public T lastElement()
+	{
+		//implementar
+	}
+	
+	public T getElement( int pos) 
+	{
+		//implementar
+	}
+	
+	public int size( ) 
+	{
+		//implementar
+	}
+	
+	public boolean isEmpty( ) 
+	{
+		//implementar
+	}
+	
+	public int isPresent (T element)
+	{
+		//implementar
+	}
+	
+	public void exchange (int pos1, int pos2)
+	{
+		//implementar
+	}
+	
+	public void changeInfo (int pos, T elem) 
+	{
+		//implementar
+	}
+	
+	
+	//METODOS ANTIGUOS
+	
 	/**
 	 * Agregar un dato de forma compacta (en la primera casilla disponible) 
 	 * Caso Especial: Si el arreglo esta lleno debe aumentarse su capacidad, agregar el nuevo dato y deben quedar multiples casillas disponibles para futuros nuevos datos.

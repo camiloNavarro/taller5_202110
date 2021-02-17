@@ -2,163 +2,229 @@ package model.data_structures;
 
 public class Lista <T extends Comparable<T>> implements ILista <T>
 {
-	private Nodo<T> primero;
-	
-	private Nodo<T> ultimo;
-	
+	private NodoLista<T> first;
+
+	private NodoLista<T> last;
+
+	private int size;
+
 	public Lista()
 	{
-		primero=null;
-		ultimo=null;
+		first=null;
+		last=null;
+		size = 0;
 	}
-	
-    public void addFirst(T elemento) {
-    	if(primero==null){
-    		primero=(Nodo<T>) elemento;
-    		ultimo=primero;
-    	}
-    	else{
-    		Nodo<T> actual=(Nodo<T>) elemento;
-    		((Nodo<T>) elemento).cambiarSiguiente(primero);
-    		primero=actual;
-    	}
-    }
-	
-	public void addLast(T elemento){
-		if(ultimo==null){
-    		ultimo=(Nodo<T>) elemento;
-    		primero=ultimo;
-    	}
-    	else{
-    		Nodo<T> actual=(Nodo<T>) elemento;
-    		ultimo.cambiarSiguiente(actual);
-    		ultimo=actual;
-    	}
-	}
-	
-	public void insertElement(T element, int pos){
-		Nodo<T> actual=primero;
-		for(int i=0; i<pos; i++){
-			if(i==pos-1){
-				actual.cambiarSiguiente((Nodo<T>) element);
-			}
-			actual=actual.darSiguiente();
-		}
-	}
-	
-	public T removeFirst( ){
-		Nodo<T> eliminado=primero;
-		primero=primero.darSiguiente();
-		return eliminado.darValor();
-	}
-	
-	public T removeLast( ){
-		Nodo<T> eliminado=ultimo;
-		Nodo<T> actual=primero;
-		while(actual.darSiguiente().darSiguiente()!=null)
+
+	public void addFirst(T element) 
+	{
+		NodoLista<T> nuevo =new NodoLista<T>(element);
+		if(size() <= 0)
 		{
-			actual=actual.darSiguiente();
+			first=nuevo;
+			last=nuevo;
+			size++;
 		}
-		ultimo=actual;
-		actual.cambiarSiguiente(null);
-		return eliminado.darValor();
-	}
-	
-	public T deleteElement( int pos){
-		Nodo<T> buscado=null;
-		Nodo<T> actual=primero;
-		int con=1;
-		while(con<pos){
-			actual=actual.darSiguiente();
-			con++;
+		else
+		{
+			nuevo.setNext(first);
+			first=nuevo;
+			size++;
 		}
-		buscado=actual.darSiguiente();
-		actual.cambiarSiguiente(buscado.darSiguiente());
-		return buscado.darValor();
-	}
-	
-	public T firstElement( ){
-		return primero.darValor();
-	}
-	
-	public T lastElement(){
-		return ultimo.darValor();
-	}
-	
-	public T getElement( int pos){
-		Nodo<T> actual=primero;
-		int con=1;
-		while(con < pos){
-			actual=actual.darSiguiente();
-			con++;
-		}
-		return actual.darValor();
-	}
-	
-	public int size( ){
-		Nodo<T> actual=primero;
-		int con=1;
-		while(actual.darSiguiente()!=null){
-			actual=actual.darSiguiente();
-			con++;
-		}
-		return con;
-	}
-	
-	public boolean isEmpty( ){
-		if(primero==null){
-			return true;
-		}
-		else{
-			return false;
-		}
-	}
-	
-	public int isPresent (T element){
-		Nodo<T> actual=primero;
-		int con=1;
-		while(actual.darValor().compareTo(element)!=0){
-			actual=actual.darSiguiente();
-			con++;
-		}
-		return con;
-	}
-	
-	public void exchange (int pos1, int pos2){
-		Nodo<T> actual=primero;
-		Nodo<T> n1=null;
-		Nodo<T> n2=null;
-		int con =1;
-		while(con!=size()|| (n1!=null && n2!=null)){
-			if(con==pos1){
-				n1=actual;
-				actual=actual.darSiguiente();
-				con++;
-			}
-			else if(con==pos2){
-				n2=actual;
-				actual=actual.darSiguiente();
-				con++;
-			}
-			else{
-				actual=actual.darSiguiente();
-				con++;
-			}
-		}
-		T dato=n1.darValor();
-		n1.cambiarValor(n2.darValor());
-		n2.cambiarValor(dato);
-	}
-	
-	public void changeInfo (int pos, T elem){
-		Nodo<T> actual=primero;
-		int con=1;
-		while(con < pos){
-			actual=actual.darSiguiente();
-			con++;
-		}
-		actual.cambiarValor(elem);
 	}
 
+	public void addLast(T element)
+	{
+		NodoLista<T> nuevo =new NodoLista<T>(element);
+		if(size() == 0)
+		{
+			first=nuevo;
+			last=nuevo;
+			size++;
+		}
+		else
+		{
+			NodoLista<T> nodoNuevo =  new NodoLista<T>(element);
+			last.setNext(nodoNuevo);
+			last = nodoNuevo;
+			size ++;
+		}
+	}
 
+	public void insertElement(T element, int pos)
+	{
+		if(pos > 1)
+		{
+			NodoLista<T> actual = first;
+			for(int i = 1; i < pos - 1; i++)
+			{
+				actual = actual.getNext();
+			}
+			NodoLista<T> nodoNuevo =  new NodoLista<T>(element);
+			nodoNuevo.setNext(actual.getNext());
+			actual.setNext(nodoNuevo);
+			size++;
+		}
+		else if (pos == 1)
+		{
+			addFirst (element);
+		}
+	}
+
+	public T removeFirst( )
+	{
+		if (size() > 0)
+		{
+			NodoLista<T> eliminado=first;
+			first= first.getNext();
+			size--;
+			return eliminado.getInfo();
+		}
+		else
+		{
+			return null;
+		}
+
+	}
+
+	public T removeLast( )
+	{
+		if (size() > 0)
+		{
+			NodoLista<T> actual = first;
+			for (int i = 1; i < size() - 1; i++)
+			{
+				actual = actual.getNext();
+			}
+
+			NodoLista<T> eliminado = actual.getNext();
+			actual.setNext(null);
+			last = actual;
+			size--;
+			return eliminado.getInfo();
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	public T deleteElement( int pos)
+	{
+		if (size() > 0 && pos > 0)
+		{
+			if(pos > 1)
+			{
+				NodoLista<T> actual = first;
+
+				for(int i = 1; i < pos - 1; i++)
+				{
+					actual = actual.getNext();
+				}
+				if (actual.getNext().getNext()!= null)
+				{
+					NodoLista<T> eliminado = actual.getNext();
+					actual.setNext(actual.getNext().getNext());
+					size--;
+					return eliminado.getInfo();
+				}
+				else
+				{
+					NodoLista<T> eliminado = actual.getNext();
+					actual.setNext(null);
+					size--;
+					return eliminado.getInfo();
+				}
+			}
+			else
+			{
+				NodoLista<T> eliminado = first;
+				removeFirst();
+				return eliminado.getInfo();
+			}
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	public T firstElement( )
+	{
+		return first != null ? first.getInfo() : null;
+	}
+
+	public T lastElement()
+	{
+		return last != null ? last.getInfo() : null;
+	}
+
+	public T getElement( int pos)
+	{
+		if(size > 0)
+		{
+			NodoLista <T> actual = first;
+			for (int i = 1; i < pos; i++)
+			{
+				actual = actual.getNext();
+			}
+			
+			return actual.getInfo();
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	public int size( )
+	{
+		return size;
+	}
+
+	public boolean isEmpty( )
+	{
+		return size() == 0 ? true: false; 
+	}
+
+	public int isPresent (T element)
+	{
+		int posicion = -1;
+		if(size > 0)
+		{
+			NodoLista <T> actual = first;
+			boolean encontro = false;
+			for (int i = 1; i <= size() && encontro == false; i++)
+			{
+				if (actual.getInfo().compareTo(element) == 0)
+				{
+					posicion = i;
+					encontro = true;
+				}
+				actual = actual.getNext();
+			}
+		}
+		return posicion;
+	}
+
+	public void exchange (int pos1, int pos2)
+	{
+		if (pos1 <= size() && pos2 <= size())
+		{
+			T info1 = getElement(pos1);
+			T info2 = getElement(pos2);
+			
+			changeInfo(pos1, info2);
+			changeInfo(pos2, info1);
+		}
+	}
+
+	public void changeInfo (int pos, T elem)
+	{
+		NodoLista<T> actual=first;
+		for (int i = 1; i < pos; i++)
+		{
+			actual=actual.getNext();
+		}
+		actual.changeInfo(elem);
+	}
 }
