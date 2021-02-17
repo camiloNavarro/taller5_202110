@@ -59,10 +59,9 @@ public class Controller {
 				    long delta2= endTime2-startTime2;
 				    
 				    
-				    String firstTitle2 = modelo.darVideosDinamico().darElemento(0).darTitulo();
-				    int tamAct = modelo.darVideosDinamico().darTamano();
-				    String lastTitle2 = modelo.darVideosDinamico().darElemento(tamAct).darTitulo();
-				    int size2 = modelo.darVideosDinamico().darTamano();
+				    String firstTitle2 = modelo.darVideosDinamico().firstElement().darTitulo();
+				    String lastTitle2 = modelo.darVideosDinamico().lastElement().darTitulo();
+				    int size2 = modelo.darVideosDinamico().size();
 				    
 				    view.printMessage("El primer video es: "+ firstTitle2);
 				    view.printMessage("El ultimo video es: "+ lastTitle2);

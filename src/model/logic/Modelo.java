@@ -32,7 +32,7 @@ public class Modelo {
 		videosLista = new Lista <YoutubeVideo>();
 	}
 
-	public IArregloDinamico<YoutubeVideo> darVideosDinamico ()
+	public ILista<YoutubeVideo> darVideosDinamico ()
 	{
 		return videosDinamico;
 	}
@@ -54,7 +54,7 @@ public class Modelo {
 				String trendingDate = record.get("trending_date");
 				String title = record.get("title");
 				YoutubeVideo nuevo=new YoutubeVideo(videoID, trendingDate, title);
-				videosDinamico.agregar(nuevo);
+				videosDinamico.addLast(nuevo);
 			}
 		}
 		catch (Exception e)

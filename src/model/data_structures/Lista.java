@@ -72,10 +72,18 @@ public class Lista <T extends Comparable<T>> implements ILista <T>
 
 	public T removeFirst( )
 	{
-		if (size() > 0)
+		if (size() > 1)
 		{
 			NodoLista<T> eliminado=first;
-			first= first.getNext();
+			first = first.getNext();
+			size--;
+			return eliminado.getInfo();
+		}
+		else if (size == 1)
+		{
+			NodoLista<T> eliminado=first;
+			first = null;
+			last = null;
 			size--;
 			return eliminado.getInfo();
 		}
@@ -91,16 +99,27 @@ public class Lista <T extends Comparable<T>> implements ILista <T>
 		if (size() > 0)
 		{
 			NodoLista<T> actual = first;
-			for (int i = 1; i < size() - 1; i++)
+			if (actual.getNext()!= null)
 			{
-				actual = actual.getNext();
-			}
+				for (int i = 1; i < size() - 1; i++)
+				{
+					actual = actual.getNext();
+				}
 
-			NodoLista<T> eliminado = actual.getNext();
-			actual.setNext(null);
-			last = actual;
-			size--;
-			return eliminado.getInfo();
+				NodoLista<T> eliminado = actual.getNext();
+				actual.setNext(null);
+				last = actual;
+				size--;
+				return eliminado.getInfo();
+			}
+			else 
+			{
+				NodoLista<T> eliminado = first;
+				first = null;
+				last = null;
+				size--;
+				return eliminado.getInfo();
+			}
 		}
 		else
 		{
@@ -160,14 +179,13 @@ public class Lista <T extends Comparable<T>> implements ILista <T>
 
 	public T getElement( int pos)
 	{
-		if(size > 0)
+		if(size() > 0)
 		{
 			NodoLista <T> actual = first;
 			for (int i = 1; i < pos; i++)
 			{
 				actual = actual.getNext();
 			}
-			
 			return actual.getInfo();
 		}
 		else
@@ -189,7 +207,7 @@ public class Lista <T extends Comparable<T>> implements ILista <T>
 	public int isPresent (T element)
 	{
 		int posicion = -1;
-		if(size > 0)
+		if(size() > 0)
 		{
 			NodoLista <T> actual = first;
 			boolean encontro = false;
@@ -212,7 +230,7 @@ public class Lista <T extends Comparable<T>> implements ILista <T>
 		{
 			T info1 = getElement(pos1);
 			T info2 = getElement(pos2);
-			
+
 			changeInfo(pos1, info2);
 			changeInfo(pos2, info1);
 		}
