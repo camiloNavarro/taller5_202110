@@ -2,15 +2,15 @@ package model.logic;
 
 import java.sql.Date;
 
-public class Video {
+public class Video  implements Comparable<Video>{
 	
 	private String id;
 	
-	private Date fecha;
+	private String fecha;
 	
 	private String titulo;
 	
-	public Video(String i, Date f, String t){
+	public Video(String i, String f, String t){
 		id=i;
 		fecha=f;
 		titulo=t;
@@ -21,7 +21,7 @@ public class Video {
 		return id;
 	}
 	
-	public Date darFecha()
+	public String darFecha()
 	{
 		return fecha;
 	}
@@ -29,5 +29,11 @@ public class Video {
 	public String darTitulo()
 	{
 		return titulo;
+	}
+
+	@Override
+	public int compareTo(Video arg0) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

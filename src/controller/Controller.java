@@ -23,7 +23,7 @@ public class Controller {
 		modelo = new Modelo();
 	}
 		
-	public void run() 
+	public void run() throws Exception 
 	{
 		Scanner lector = new Scanner(System.in);
 		boolean fin = false;
@@ -36,66 +36,20 @@ public class Controller {
 			int option = lector.nextInt();
 			switch(option){
 				case 1:
-					view.printMessage("--------- \nCrear Arreglo \nDar capacidad inicial del arreglo: ");
-				    int capacidad = lector.nextInt();
-				    modelo = new Modelo(capacidad); 
-				    view.printMessage("Arreglo Dinamico creado");
-				    view.printMessage("Numero actual de elementos " + modelo.darTamano() + "\n---------");						
+					view.printMessage("cargar datos ");
+				    long startTime = System.currentTimeMillis();
+				    modelo.cargarDatos(); 
+				    long endTime = System.currentTimeMillis();
+				    long delta= endTime-startTime;
+				    view.printMessage("el tiempo de carga es: "+delta);
+				    String prim=modelo.darCatalogo().videos.darElemento(0).darTitulo();
+				    int tam=modelo.darCatalogo().videos.darTamano();
+				    String ult=modelo.darCatalogo().videos.darElemento(tam).darTitulo();
+				    view.printMessage("el primer video es: "+prim);
+				    view.printMessage("el ultimo video es: "+ult);
 					break;
 
 				case 2:
-					view.printMessage("--------- \nDar cadena (simple) a ingresar: ");
-					dato = lector.next();
-					modelo.agregar(dato);
-					view.printMessage("Dato agregado");
-					view.printMessage("Numero actual de elementos " + modelo.darTamano() + "\n---------");						
-					break;
-
-				case 3:
-					view.printMessage("--------- \nDar cadena (simple) a buscar: ");
-					dato = lector.next();
-					respuesta = modelo.buscar(dato);
-					if ( respuesta != null)
-					{
-						view.printMessage("Dato encontrado: "+ respuesta);
-					}
-					else
-					{
-						view.printMessage("Dato NO encontrado");
-					}
-					view.printMessage("Numero actual de elementos " + modelo.darTamano() + "\n---------");						
-					break;
-
-				case 4:
-					view.printMessage("--------- \nDar cadena (simple) a eliminar: ");
-					dato = lector.next();
-					respuesta = modelo.eliminar(dato);
-					if ( respuesta != null)
-					{
-						view.printMessage("Dato eliminado "+ respuesta);
-					}
-					else
-					{
-						view.printMessage("Dato NO eliminado");							
-					}
-					view.printMessage("Numero actual de elementos " + modelo.darTamano() + "\n---------");						
-					break;
-
-				case 5: 
-					view.printMessage("--------- \nContenido del Arreglo: ");
-					view.printModelo(modelo);
-					view.printMessage("Numero actual de elementos " + modelo.darTamano() + "\n---------");						
-					break;
-					
-				case 6: 
-					view.printMessage("--------- \n Contenido sin invertir: \n---------"); 
-					view.printModelo(modelo);
-					view.printMessage("--------- \n Contenido invertido: \n---------"); 
-					modelo.invertirContenido();
-					view.printModelo(modelo);
-					break;	
-					
-				case 7: 
 					view.printMessage("--------- \n Hasta pronto !! \n---------"); 
 					lector.close();
 					fin = true;

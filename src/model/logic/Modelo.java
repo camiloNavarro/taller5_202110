@@ -1,7 +1,10 @@
 package model.logic;
 
-import java.io.File;
 import java.io.FileReader;
+import java.io.Reader;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
 
 import model.data_structures.ArregloDinamico;
 import model.data_structures.IArregloDinamico;
@@ -16,6 +19,8 @@ public class Modelo {
 	 */
 	private IArregloDinamico<String> datos;
 	
+	private Catalogo catalogo;
+	
 	public static String ARCHIVO_DETAILS = "./data/videos-small.csv";
 	
 	/**
@@ -24,6 +29,7 @@ public class Modelo {
 	public Modelo()
 	{
 		datos = new ArregloDinamico<String>(7);
+		catalogo = new Catalogo();
 	}
 	
 	/**
@@ -46,11 +52,12 @@ public class Modelo {
 
 	/**
 	 * Requerimiento de agregar dato
+	 * @param <T>
 	 * @param dato
 	 */
-	public void agregar(String dato)
+	public  void agregar(String dato)
 	{	
-		datos.agregar(dato);
+		datos.agregar(dato);;
 	}
 	
 	/**
@@ -73,10 +80,20 @@ public class Modelo {
 		return datos.eliminar(dato);
 	}
 	
-	public void cargarDatos(){
-		final File archivo1 = new File(Modelo.ARCHIVO_DETAILS);
-		FileReader fr1 = null;
-		
+	public void cargarDatos() throws Exception{
+		Reader in = new FileReader(ARCHIVO_DETAILS);
+		Iterable<CSVRecord> records = CSVFormat.EXCEL.parse(in);
+		for (CSVRecord record : records) {
+		    String wId = record.get("video_id");
+		    String fecha = record.get("trending_date");
+		    String titulo = record.get("title");
+		    Video nuevo=new Video(wId, fecha, titulo);
+		   catalogo.videos.agregar(nuevo);
+		}
+	}
+	
+	public Catalogo darCatalogo(){
+		return catalogo;
 	}
 	
 	public void invertirContenido ()
