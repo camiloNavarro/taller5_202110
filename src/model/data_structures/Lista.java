@@ -245,4 +245,24 @@ public class Lista <T extends Comparable<T>> implements ILista <T>
 		}
 		actual.changeInfo(elem);
 	}
+	
+	/**
+	* Crear una sublista de la lista original (this).
+	* Los elementos se toman en el mismo orden como aparecen en la lista original (this).
+	* @param número de elementos que contendrá la sublista. Si el número es superior al tamaño
+	* original de la lista, se obtiene una copia de la lista original.
+	* @return sublista creada con la misma representación de la lista original (this).
+	*/
+	public ILista<T> sublista(int numElementos)
+	{
+		
+		ILista <T> subListaEncadenada = new Lista<T>();
+		for (int i = 1 ; i <= numElementos; i ++)
+		{
+			T actual = getElement(i);
+			subListaEncadenada.addLast(actual);
+		}
+		
+		return subListaEncadenada;
+	}
 }

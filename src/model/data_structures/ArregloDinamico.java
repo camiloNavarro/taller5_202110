@@ -1,5 +1,7 @@
 package model.data_structures;
 
+import model.logic.YoutubeVideo;
+
 /**
  * 2019-01-23
  * Estructura de Datos Arreglo Dinamico de Strings.
@@ -235,5 +237,26 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>{
 	{
 		int posArreglo = pos-1;
 		elementos [posArreglo] = elem;
+	}
+	
+	/**
+	* Crear una sublista de la lista original (this).
+	* Los elementos se toman en el mismo orden como aparecen en la lista original (this).
+	* @param número de elementos que contendrá la sublista. Si el número es superior al tamaño
+	* original de la lista, se obtiene una copia de la lista original.
+	* @return sublista creada con la misma representación de la lista original (this).
+	*/
+	public ILista<T> sublista(int numElementos)
+	{
+		
+		ILista <T> subListaDinamica = new ArregloDinamico<T>(numElementos);
+		for (int i = 0 ; i < numElementos; i ++)
+		{
+			T actual = elementos [i];
+			subListaDinamica.addLast(actual);
+		}
+		
+		
+		return subListaDinamica;
 	}
 }
