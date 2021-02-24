@@ -1,6 +1,5 @@
 package model.data_structures;
 
-import model.logic.YoutubeVideo;
 
 /**
  * 2019-01-23
@@ -246,17 +245,42 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>{
 	* original de la lista, se obtiene una copia de la lista original.
 	* @return sublista creada con la misma representación de la lista original (this).
 	*/
-	public ILista<T> sublista(int numElementos)
+	public ILista<T> subLista(int numElementos)
 	{
-		
-		ILista <T> subListaDinamica = new ArregloDinamico<T>(numElementos);
-		for (int i = 0 ; i < numElementos; i ++)
+		if (numElementos > size())
 		{
-			T actual = elementos [i];
-			subListaDinamica.addLast(actual);
+			return this;
+		}
+		else 
+		{
+			ILista <T> subListaDinamica = new ArregloDinamico<T>(numElementos);
+			for (int i = 0 ; i < numElementos; i ++)
+			{
+				T actual = elementos [i];
+				subListaDinamica.addLast(actual);
+			}
+			
+			return subListaDinamica;
 		}
 		
-		
-		return subListaDinamica;
+	}
+	
+	public ILista<T> subList(int posInicial, int posFinal)
+	{
+		int sizeList = posFinal - posInicial + 1;
+		if ( sizeList > size())
+		{
+			return this;
+		}
+		else
+		{
+			ILista <T> subListDinamico = new ArregloDinamico<T>(sizeList);
+			for (int i = posInicial ; i <= posFinal; i ++)
+			{
+				T actual = this.getElement(i);
+				subListDinamico.addLast(actual);
+			}
+			return subListDinamico;
+		}	
 	}
 }

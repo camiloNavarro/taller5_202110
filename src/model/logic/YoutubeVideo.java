@@ -1,8 +1,9 @@
 package model.logic;
 
+import java.util.Comparator;
 
 public class YoutubeVideo  implements Comparable<YoutubeVideo>{
-	
+
 	private String videoID;
 	private String trendingDate;
 	private String title;
@@ -20,7 +21,7 @@ public class YoutubeVideo  implements Comparable<YoutubeVideo>{
 	private boolean videoErrorOrRemoved;
 	private String description;
 	private String country;
-	
+
 	public YoutubeVideo(String pVideoID, String pTrendingDate, String pTitle, String pChannelTitle, String pCategoryID, String pPublishTime, String pTags, int pViews, int pLikes, int pDislikes, int pCommentCount, String pThumbnailLink, String pCommentsDisabled, String pRatingsDisabled, String pVideoErrorOrRemoved, String pDescription, String pCountry)
 	{
 		videoID= pVideoID;
@@ -41,7 +42,7 @@ public class YoutubeVideo  implements Comparable<YoutubeVideo>{
 		description = pDescription;
 		country = pCountry;
 	}
-	
+
 	public String getVideoID()
 	{
 		return videoID;
@@ -110,9 +111,25 @@ public class YoutubeVideo  implements Comparable<YoutubeVideo>{
 	{
 		return country;
 	}
-	
+
+	/** Comparación natural de acuerdo a algún atributo con identificación única
+	 * @return valor 0 si this y otro son iguales. Numero negativo si this es menor a otro.
+	 * Numero positivo this es mayor a otro */
 	public int compareTo(YoutubeVideo otro) 
 	{
 		return this.getTrendingDate().compareTo(otro.getTrendingDate()); 
+	}
+
+	/** Comparador alterno de 2 videos por número de likes*/
+
+	public static class ComparadorXLikes implements Comparator<YoutubeVideo> {
+		/** Comparador alterno de acuerdo al número de likes
+		 * @return valor 0 si video1 y video2 tiene los mismos likes.
+		 * valor negativo si video1 tiene menos likes que video2.
+		 * valor positivo si video1 tiene más likes que video2. */
+		public int compare(YoutubeVideo video1, YoutubeVideo video2) 
+		{
+			return video1.getLikes()-video2.getLikes();
+		}
 	}
 }

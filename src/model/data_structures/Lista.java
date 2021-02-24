@@ -253,16 +253,39 @@ public class Lista <T extends Comparable<T>> implements ILista <T>
 	* original de la lista, se obtiene una copia de la lista original.
 	* @return sublista creada con la misma representación de la lista original (this).
 	*/
-	public ILista<T> sublista(int numElementos)
+	public ILista<T> subLista(int numElementos)
 	{
-		
-		ILista <T> subListaEncadenada = new Lista<T>();
-		for (int i = 1 ; i <= numElementos; i ++)
+		if (numElementos > size())
 		{
-			T actual = getElement(i);
-			subListaEncadenada.addLast(actual);
+			return this;
 		}
-		
-		return subListaEncadenada;
+		else
+		{
+			ILista <T> subListaEncadenada = new Lista<T>();
+			for (int i = 1 ; i <= numElementos; i ++)
+			{
+				T actual = this.getElement(i);
+				subListaEncadenada.addLast(actual);
+			}
+			return subListaEncadenada;
+		}	
+	}
+	
+	public ILista<T> subList(int posInicial, int posFinal)
+	{
+		if ((posFinal - posInicial + 1 ) > size())
+		{
+			return this;
+		}
+		else
+		{
+			ILista <T> subListEncadenada = new Lista<T>();
+			for (int i = posInicial ; i <= posFinal; i ++)
+			{
+				T actual = this.getElement(i);
+				subListEncadenada.addLast(actual);
+			}
+			return subListEncadenada;
+		}	
 	}
 }
