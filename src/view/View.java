@@ -30,7 +30,7 @@ public class View
 		{
 			System.out.println("Escoja lo que desea hacer con el arreglo ");
 			System.out.println("1. Obtener una muestra de determinada cantidad de videos ");
-			System.out.println("2. Probar algoritmo de insercion con una muestra de 100000 ");
+			System.out.println("2. Hacer prueba completa con varias muestras de videos ");
 			System.out.println("3. Exit");
 			System.out.println("Dar el numero de opcion a resolver, luego oprimir tecla Return: (e.g., 1):");
 		}

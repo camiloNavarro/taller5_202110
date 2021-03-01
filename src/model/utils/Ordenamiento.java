@@ -61,7 +61,8 @@ public final class Ordenamiento <T extends Comparable<T>>
 			int mid = size/2;
 			//Se divide la lista original en dos partes, izquierda y derecha, desde el punto mid.
 			ILista<T> leftList = lista.subList(1, mid);
-			ILista<T> rightList = lista.subList(mid+1, size - mid);
+			//ILista<T> rightList = lista.subList(mid+1, size - mid);
+			ILista<T> rightList = lista.subList(mid+1, size);
 
 			//Se hace el llamado recursivo con la lista izquierda y derecha.
 			ordenarMergeSort(leftList, criterio, ascendente);

@@ -77,7 +77,7 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>{
 	public void insertElement(T element, int pos)
 	{
 		int posArreglo = pos-1;
-		
+
 		if ( tamanoAct == tamanoMax )
 		{  // caso de arreglo lleno (aumentar tamaNo)
 			tamanoMax = 2 * tamanoMax;
@@ -92,21 +92,21 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>{
 
 		T [] anterior = elementos;
 		elementos = (T[]) new Comparable [tamanoMax];
-		
+
 		for ( int i = 0; i < posArreglo; i++)
 		{
 			elementos[i] = anterior[i];
 		}
-		
+
 		elementos[posArreglo] = element;
-		
+
 		for ( int j = posArreglo; j < size(); j++)
 		{
 			elementos[j+1] = anterior[j];
 		}
-		
+
 		tamanoAct++;
-		
+
 	}
 
 	public T removeFirst( )
@@ -153,18 +153,18 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>{
 		int posArreglo = pos-1;
 		T [] anterior = elementos;
 		elementos = (T[]) new Comparable [tamanoMax];
-		
+
 		for ( int i = 0; i < posArreglo; i++)
 		{
 			elementos[i] = anterior[i];
 		}
-		
+
 		T eliminado = anterior [posArreglo];
 		for ( int j = posArreglo; j < size(); j++)
 		{
 			elementos[j] = anterior[j+1];
 		}
-		
+
 		tamanoAct--;
 		return eliminado;
 	}
@@ -237,34 +237,32 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>{
 		int posArreglo = pos-1;
 		elementos [posArreglo] = elem;
 	}
-	
+
 	/**
-	* Crear una sublista de la lista original (this).
-	* Los elementos se toman en el mismo orden como aparecen en la lista original (this).
-	* @param número de elementos que contendrá la sublista. Si el número es superior al tamaño
-	* original de la lista, se obtiene una copia de la lista original.
-	* @return sublista creada con la misma representación de la lista original (this).
-	*/
+	 * Crear una sublista de la lista original (this).
+	 * Los elementos se toman en el mismo orden como aparecen en la lista original (this).
+	 * @param número de elementos que contendrá la sublista. Si el número es superior al tamaño
+	 * original de la lista, se obtiene una copia de la lista original.
+	 * @return sublista creada con la misma representación de la lista original (this).
+	 */
 	public ILista<T> subLista(int numElementos)
 	{
-		if (numElementos > size())
+		ILista <T> subListaEncadenada = new Lista<T>();
+		if (numElementos >= size())
 		{
-			return this;
+			numElementos = size();
 		}
-		else 
+
+		for (int i = 1 ; i <= numElementos; i ++)
 		{
-			ILista <T> subListaDinamica = new ArregloDinamico<T>(numElementos);
-			for (int i = 0 ; i < numElementos; i ++)
-			{
-				T actual = elementos [i];
-				subListaDinamica.addLast(actual);
-			}
-			
-			return subListaDinamica;
+			T actual = this.getElement(i);
+			subListaEncadenada.addLast(actual);
 		}
-		
+
+		return subListaEncadenada;
+
 	}
-	
+
 	public ILista<T> subList(int posInicial, int posFinal)
 	{
 		int sizeList = posFinal - posInicial + 1;
