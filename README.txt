@@ -1,5 +1,5 @@
 Samuel Nicolas Rodriguez Celis
-Cuarto semestre
+sn.rodriguezc@uniandes.edu.co
 201921167
 
 camilo navarro
