@@ -27,9 +27,12 @@ public class Modelo {
 	private ILista <YoutubeVideo> subListaVideosDinamico;
 
 	private ILista <YoutubeVideo> subListaVideosLista;
+	
+	private Category[] categoryLista;
 
 	public static String CSV_SMALL = "./data/videos-small.csv";
 	public static String CSV_ALL = "./data/videos-all.csv";
+	public static String CATEGORY = "./data/category-id.csv";
 
 
 	public Modelo()
@@ -38,6 +41,7 @@ public class Modelo {
 		videosLista = new Lista <YoutubeVideo>();
 		subListaVideosDinamico = null;
 		subListaVideosLista = null;
+		categoryLista = new Category[32];
 	}
 
 	public ILista<YoutubeVideo> darVideosDinamico ()
@@ -58,6 +62,11 @@ public class Modelo {
 	public ILista<YoutubeVideo> darsubListaVideosLista ()
 	{
 		return subListaVideosLista;
+	}
+	
+	public Category[] darsCategoriaLista ()
+	{
+		return categoryLista;
 	}
 
 	public void cargarVideosDinamico() 
@@ -98,35 +107,25 @@ public class Modelo {
 		}
 	}
 
-	public void cargarVideosLista()
+	public void cargarCategorias()
 	{
 		try
 		{
-			Reader in = new FileReader(CSV_ALL);
-			Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
+			Reader in = new FileReader(CATEGORY);
+			Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().withRecordSeparator('\t').parse(in);
+			int i =0;
 			//Iterable<CSVRecord> records = CSVFormat.RFC4180.withHeader("video_id", "trending_date", "title","channel_title","category_id","publish_time","tags","views","likes","dislikes","comment_count","thumbnail_link","comments_disabled","ratings_disabled","video_error_or_removed","description","country").parse(in);
 			for (CSVRecord record : records) 
 			{
-				String videoID = record.get("video_id");
-				String trendingDate = record.get("trending_date");
-				String title = record.get("title");
-				String channelTitle = record.get("channel_title");
-				String categoryID = record.get("category_id");
-				String publishTime = record.get("publish_time");
-				String tags = record.get("tags");
-				int views = Integer.parseInt(record.get("views"));
-				int likes = Integer.parseInt(record.get("likes"));
-				int dislikes = Integer.parseInt(record.get("dislikes"));
-				int commentCount = Integer.parseInt(record.get("comment_count"));
-				String thumbnailLink = record.get("thumbnail_link");
-				String commentsDisabled = record.get("comments_disabled");
-				String ratingsDisabled = record.get("ratings_disabled");
-				String videoErrorOrRemoved = record.get("video_error_or_removed");
-				String description = record.get("description");
-				String country = record.get("country");
+				int id = Integer.parseInt(record.get("id"));
 				
-				YoutubeVideo nuevo=new YoutubeVideo(videoID, trendingDate, title,channelTitle,categoryID,publishTime,tags,views,likes,dislikes,commentCount,thumbnailLink,commentsDisabled,ratingsDisabled,videoErrorOrRemoved,description,country);
-				videosLista.addLast(nuevo);
+				String name = record.get("name");
+				name = name.trim();
+				System.out.println(name);
+				Category nuevo=new Category(name, id);
+				
+				categoryLista[i]=nuevo;
+				i++;
 			}
 		}
 		catch (Exception e)
@@ -174,6 +173,11 @@ public class Modelo {
 		{
 			algsOrdenamientoVideos.ordenarQuickSort(lista, comparadorXLikes, ascendente);
 		}
+	}
+	
+	public void requerimiento1(String pais, String categoria)
+	{
+		
 	}
 	
 }

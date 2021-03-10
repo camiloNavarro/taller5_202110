@@ -37,7 +37,20 @@ public interface ILista <T extends Comparable<T>>
 	* original de la lista, se obtiene una copia de la lista original.
 	* @return sublista creada con la misma representación de la lista original (this).
 	*/
-	public ILista<T> subLista(int numElementos);
+	public default ILista<T> subLista(int numElementos)
+	{
+		ILista <T> subListaDinamica = new ArregloDinamico <T> (numElementos);
+		if(numElementos >= size())
+		{
+			numElementos=size();
+		}
+		for(int i =1; i <=numElementos; i++)
+		{
+			T actual = this.getElement(i);
+			subListaDinamica.addLast(actual);
+		}
+		return subListaDinamica;
+	}
 	
 	public ILista<T> subList(int posInicial, int posFinal);
 
