@@ -178,12 +178,10 @@ public class Modelo {
 	public ILista<YoutubeVideo> Req1 (String categoryName, String country)
 	{
 		String categoryID = buscarCategoryID(categoryName);
-		ILista<YoutubeVideo> subListaCategoria = subListaPorCategoria (darVideosDinamico(), categoryID);
-		ILista<YoutubeVideo> subListaPais = subListaPorPais (subListaCategoria, country);
+		ILista<YoutubeVideo> subListaPaisCategoria = subListaPorPaisCategoria (darVideosDinamico(), categoryID, country);
+		ordenarListaLikes (subListaPaisCategoria, false);
 		
-		ordenarListaLikes (subListaPais, false);
-		
-		return subListaPais;
+		return subListaPaisCategoria;
 	}
 
 	public String Req2 (String country)
@@ -299,6 +297,26 @@ public class Modelo {
 
 		}
 		return subListaCategoria;
+	}
+	
+	public ILista<YoutubeVideo> subListaPorPaisCategoria (ILista<YoutubeVideo> lista,String categoryID, String country )
+	{
+		ILista <YoutubeVideo> subListaPaisCategoria = new ArregloDinamico <YoutubeVideo>(1);
+
+		for (int i = 1 ; i <= lista.size(); i ++)
+		{
+			YoutubeVideo actual = lista.getElement(i);
+			if((categoryID.compareTo("23") == 0 && (actual.getCategoryID().compareTo(categoryID)==0 || actual.getCategoryID().compareTo("34")==0)) && (actual.getCountry().compareTo(country) == 0) )
+			{         
+				subListaPaisCategoria.addLast(actual);
+			}
+			else if((actual.getCategoryID().compareTo(categoryID)==0) && (actual.getCountry().compareTo(country) == 0))
+			{         
+				subListaPaisCategoria.addLast(actual);
+			}
+
+		}
+		return subListaPaisCategoria;
 	}
 
 }
