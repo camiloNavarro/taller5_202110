@@ -111,6 +111,11 @@ public class YoutubeVideo  implements Comparable<YoutubeVideo>{
 	{
 		return country;
 	}
+	
+	public String[] darTags() {     
+        String[] arrSplit_2 = tags.split("\\|");  
+        return arrSplit_2;
+    }
 
 	/** Comparación natural de acuerdo a algún atributo con identificación única
 	 * @return valor 0 si this y otro son iguales. Numero negativo si this es menor a otro.

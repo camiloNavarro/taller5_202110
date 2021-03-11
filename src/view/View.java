@@ -14,7 +14,8 @@ public class View
 		{
 			System.out.println("1. Cargar archivo completo en una lista");
 			System.out.println("2. requerimiento1");
-			System.out.println("3. Exit");
+			System.out.println("3. requerimiento4");
+			System.out.println("4. Exit");
 			System.out.println("Dar el numero de opcion a resolver, luego oprimir tecla Return: (e.g., 1):");
 		}
 		

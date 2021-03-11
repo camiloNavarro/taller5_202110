@@ -220,4 +220,38 @@ public class Modelo {
 		}
 	}
 	
+	public void requerimiento4(String pais, String tag, int n)
+	{
+		ArregloDinamico<YoutubeVideo>paisV = new ArregloDinamico<YoutubeVideo>(7);
+		for(int i=0;i<videosDinamico.size();i++)
+		{
+			if(videosDinamico.getElement(i).getCountry().equals(pais))
+			{
+				paisV.addLast(videosDinamico.getElement(i));
+			}
+		}
+		ArregloDinamico<YoutubeVideo>paisT = new ArregloDinamico<YoutubeVideo>(7);
+		for(int i=0; i<paisV.size();i++)
+		{
+			for(int j =0;j<paisV.getElement(i).darTags().length;j++)
+			{
+				if(paisV.getElement(i).darTags()[j].equals(tag))
+				{
+					paisT.addLast(paisV.getElement(i));
+				}
+			}
+		}
+		for(int i =0;i<n;i++)
+		{
+			System.out.println("-----------------------------------------" );
+			System.out.println("titulo: " +paisV.getElement(i).getTitle());
+			System.out.println("canal: " +paisV.getElement(i).getChannelTitle());
+			System.out.println("publish time: " +paisV.getElement(i).getPublishTime());
+			System.out.println("views: " +paisV.getElement(i).getViews());
+			System.out.println("likes: " +paisV.getElement(i).getLikes());
+			System.out.println("dislikes: " +paisV.getElement(i).getDislikes());
+			System.out.println("tags: " +paisV.getElement(i).getTags());
+		}
+	}
+	
 }

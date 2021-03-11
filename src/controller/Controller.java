@@ -49,6 +49,15 @@ public class Controller {
 				   view.printMessage("cuantos videos desea consultar?");
 				   int cantidad = lector.nextInt();
 				   modelo.requerimiento1(pais, categoria, cantidad);
+				   
+			   case 3:
+				   view.printMessage("elija pais ");
+				   String pais2= lector.next();
+				   view.printMessage("elija categoria");
+				   String tag= lector.next();
+				   view.printMessage("cuantos videos desea consultar?");
+				   int cantidad2 = lector.nextInt();
+				   modelo.requerimiento4(pais2, tag, cantidad2);
 			}
 		}	
 	}	
