@@ -13,18 +13,15 @@ public class View
 		public void printMenu()
 		{
 			System.out.println("1. Cargar archivo completo en una lista");
-			System.out.println("2. requerimiento1");
-			System.out.println("3. requerimiento4");
-			System.out.println("4. Exit");
+			System.out.println("2. Exit");
 			System.out.println("Dar el numero de opcion a resolver, luego oprimir tecla Return: (e.g., 1):");
 		}
 		
 		public void printMenuCarga()
 		{
 			System.out.println("Escoja la representacion que desea");
-			System.out.println("1. Lista enlazada");
-			System.out.println("2. Arreglo dinamico");
-			System.out.println("3. Exit");
+			System.out.println("1. Arreglo dinamico");
+			System.out.println("2. Exit");
 			System.out.println("Dar el numero de opcion a resolver, luego oprimir tecla Return: (e.g., 1):");
 		}
 		
@@ -44,6 +41,17 @@ public class View
 			System.out.println("2. Shell sort");
 			System.out.println("3. Merge sort");
 			System.out.println("4. Quick sort");
+			System.out.println("5. Exit");
+			System.out.println("Dar el numero de opcion a resolver, luego oprimir tecla Return: (e.g., 1):");
+		}
+		
+		public void printMenuRequerimientos()
+		{
+			System.out.println("Escoja el requerimiento que desea aplicar: ");
+			System.out.println("1. Encontrar buenos videos por categoria y por pais");
+			System.out.println("2. Encontrar video tendencia por pais");
+			System.out.println("3. Encontrar video tendencia por categoria");
+			System.out.println("4. Buscar los videos con mas likes");
 			System.out.println("5. Exit");
 			System.out.println("Dar el numero de opcion a resolver, luego oprimir tecla Return: (e.g., 1):");
 		}

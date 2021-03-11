@@ -42,7 +42,7 @@ public class YoutubeVideo  implements Comparable<YoutubeVideo>{
 		description = pDescription;
 		country = pCountry;
 	}
-
+	
 	public String getVideoID()
 	{
 		return videoID;
@@ -111,11 +111,6 @@ public class YoutubeVideo  implements Comparable<YoutubeVideo>{
 	{
 		return country;
 	}
-	
-	public String[] darTags() {     
-        String[] arrSplit_2 = tags.split("\\|");  
-        return arrSplit_2;
-    }
 
 	/** Comparación natural de acuerdo a algún atributo con identificación única
 	 * @return valor 0 si this y otro son iguales. Numero negativo si this es menor a otro.
@@ -134,18 +129,19 @@ public class YoutubeVideo  implements Comparable<YoutubeVideo>{
 		 * valor positivo si video1 tiene más likes que video2. */
 		public int compare(YoutubeVideo video1, YoutubeVideo video2) 
 		{
-			return video1.getViews()-video2.getViews();
+			return video1.getLikes()-video2.getLikes();
 		}
 	}
 	
-	public static class ComparadorXViews implements Comparator<YoutubeVideo> {
-		/** Comparador alterno de acuerdo al número de likes
-		 * @return valor 0 si video1 y video2 tiene los mismos likes.
-		 * valor negativo si video1 tiene menos likes que video2.
-		 * valor positivo si video1 tiene más likes que video2. */
+	/** Comparador alterno de 2 videos por titulo*/
+	public static class ComparadorXTitulo implements Comparator<YoutubeVideo> {
+		/** Comparador alterno de acuerdo al titulo
+		 * @return valor 0 si video1 y video2 tiene el mismo titulo.
+		 * valor negativo si el titulo del video1 es lexicograficamente menor que el del video2.
+		 * valor positivo si el titulo del video1 es lexicograficamente mayor que el del video2. */
 		public int compare(YoutubeVideo video1, YoutubeVideo video2) 
 		{
-			return video1.getViews()-video2.getViews();
+			return video1.getTitle().compareTo(video2.getTitle());
 		}
 	}
 }

@@ -183,8 +183,7 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>{
 	{
 		if(size() > 0)
 		{
-			int posArreglo = pos;
-			return elementos [posArreglo];
+			return elementos [pos-1];
 		}
 		else
 		{
@@ -234,8 +233,7 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>{
 
 	public void changeInfo (int pos, T elem) 
 	{
-		int posArreglo = pos-1;
-		elementos [posArreglo] = elem;
+		elementos [pos-1] = elem;
 	}
 
 	/**
@@ -247,7 +245,7 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>{
 	 */
 	public ILista<T> subLista(int numElementos)
 	{
-		ILista <T> subListaEncadenada = new Lista<T>();
+		ILista <T> subListaDinamica = new ArregloDinamico <T>(numElementos);
 		if (numElementos >= size())
 		{
 			numElementos = size();
@@ -256,10 +254,10 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>{
 		for (int i = 1 ; i <= numElementos; i ++)
 		{
 			T actual = this.getElement(i);
-			subListaEncadenada.addLast(actual);
+			subListaDinamica.addLast(actual);
 		}
 
-		return subListaEncadenada;
+		return subListaDinamica;
 
 	}
 

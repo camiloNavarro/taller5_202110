@@ -1,30 +1,30 @@
 package model.logic;
 
-import java.util.Comparator;
 
-public class Category implements Comparable<Category>{
-	private String category;
-	private int id;
+public class Category implements Comparable<Category>
+{
+	private String categoryID;
+	private String categoryName;
 	
-	public Category(String cat, int cId)
+	public Category (String pID, String pName)
 	{
-		category=cat;
-		id=cId;
+		categoryID = pID;
+		categoryName = pName;
 	}
 	
-	public String darCategoria()
+	public String getCategoryID()
 	{
-		return category;
+		return categoryID;
 	}
 	
-	public int darId()
+	public String getCategoryName()
 	{
-		return id;
+		return categoryName;
+	}
+	
+	public int compareTo(Category otro) 
+	{
+		return this.getCategoryName().compareTo(otro.getCategoryName()); 
 	}
 
-	@Override
-	public int compareTo(Category o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 }
