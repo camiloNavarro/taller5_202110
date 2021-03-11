@@ -28,7 +28,8 @@ public class Modelo {
 
 	private ILista <YoutubeVideo> subListaVideosLista;
 	
-	private Category[] categoryLista;
+	private ILista <Category> categorias;
+	
 
 	public static String CSV_SMALL = "./data/videos-small.csv";
 	public static String CSV_ALL = "./data/videos-all.csv";
@@ -39,9 +40,9 @@ public class Modelo {
 	{
 		videosDinamico = new ArregloDinamico<YoutubeVideo>(7);
 		videosLista = new Lista <YoutubeVideo>();
+		categorias = new Lista <Category>();
 		subListaVideosDinamico = null;
 		subListaVideosLista = null;
-		categoryLista = new Category[32];
 	}
 
 	public ILista<YoutubeVideo> darVideosDinamico ()
@@ -64,9 +65,9 @@ public class Modelo {
 		return subListaVideosLista;
 	}
 	
-	public Category[] darsCategoriaLista ()
+	public ILista<Category> darsCategoriaLista ()
 	{
-		return categoryLista;
+		return categorias;
 	}
 
 	public void cargarVideosDinamico() 
@@ -112,8 +113,7 @@ public class Modelo {
 		try
 		{
 			Reader in = new FileReader(CATEGORY);
-			Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().withRecordSeparator('\t').parse(in);
-			int i =0;
+			Iterable<CSVRecord> records = CSVFormat.RFC4180.withTrim().withFirstRecordAsHeader().withDelimiter('\t').parse(in);
 			//Iterable<CSVRecord> records = CSVFormat.RFC4180.withHeader("video_id", "trending_date", "title","channel_title","category_id","publish_time","tags","views","likes","dislikes","comment_count","thumbnail_link","comments_disabled","ratings_disabled","video_error_or_removed","description","country").parse(in);
 			for (CSVRecord record : records) 
 			{
@@ -121,16 +121,14 @@ public class Modelo {
 				
 				String name = record.get("name");
 				name = name.trim();
-				System.out.println(name);
 				Category nuevo=new Category(name, id);
 				
-				categoryLista[i]=nuevo;
-				i++;
+				categorias.addLast(nuevo);
 			}
 		}
 		catch (Exception e)
 		{
-			
+			System.out.println(e.getMessage());
 		}
 	}
 	
@@ -175,9 +173,51 @@ public class Modelo {
 		}
 	}
 	
-	public void requerimiento1(String pais, String categoria)
+	public void ordenarViews(ILista <YoutubeVideo> lista,String tipoOrdenamiento, boolean ascendente)
 	{
-		
+		Comparator<YoutubeVideo> comparadorXviews = new YoutubeVideo.ComparadorXViews();
+		Ordenamiento<YoutubeVideo> algsOrdenamientoVideos = new Ordenamiento<YoutubeVideo>();
+		algsOrdenamientoVideos.ordenarQuickSort(lista, comparadorXviews, ascendente);
+	}
+	
+	public void requerimiento1(String pais, String categoria, int n)
+	{
+		ArregloDinamico<YoutubeVideo>paisV = new ArregloDinamico<YoutubeVideo>(7);
+		for(int i=0;i<videosDinamico.size();i++)
+		{
+			if(videosDinamico.getElement(i).getCountry().equals(pais))
+			{
+				paisV.addLast(videosDinamico.getElement(i));
+			}
+		}
+		int id=0;
+		for(int j=0;j<categorias.size();j++)
+		{
+			if(categorias.getElement(j).darCategoria().compareToIgnoreCase(categoria)==0)
+			{
+				id=categorias.getElement(j).darId();
+			}
+		}
+		ArregloDinamico<YoutubeVideo>paisC = new ArregloDinamico<YoutubeVideo>(7);
+		for(int k=0; k<paisV.size();k++)
+		{
+			if(Integer.parseInt(paisV.getElement(k).getCategoryID())==id)
+			{
+				paisC.addLast(paisV.getElement(k));
+			}
+		}
+		for(int l=0; l<n && n<paisC.size();l++)
+		{
+			YoutubeVideo actual=paisC.getElement(l);
+			System.out.println("-------------------------------");
+			System.out.println("titulo: " + actual.getTitle());
+			System.out.println("trending date: " + actual.getTrendingDate());
+			System.out.println("nombre del canal: " + actual.getChannelTitle());
+			System.out.println("publish time: " + actual.getPublishTime());
+			System.out.println("reproducciones: " + actual.getViews());
+			System.out.println("likes: " + actual.getLikes());
+			System.out.println("dislikes: " + actual.getDislikes());
+		}
 	}
 	
 }

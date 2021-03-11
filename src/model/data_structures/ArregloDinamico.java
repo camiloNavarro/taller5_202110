@@ -183,7 +183,7 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>{
 	{
 		if(size() > 0)
 		{
-			int posArreglo = pos-1;
+			int posArreglo = pos;
 			return elementos [posArreglo];
 		}
 		else

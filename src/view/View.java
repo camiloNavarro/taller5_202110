@@ -13,7 +13,7 @@ public class View
 		public void printMenu()
 		{
 			System.out.println("1. Cargar archivo completo en una lista");
-			System.out.println("2. cargar categorias");
+			System.out.println("2. requerimiento1");
 			System.out.println("3. Exit");
 			System.out.println("Dar el numero de opcion a resolver, luego oprimir tecla Return: (e.g., 1):");
 		}

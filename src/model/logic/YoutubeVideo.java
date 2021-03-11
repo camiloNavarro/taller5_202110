@@ -129,7 +129,18 @@ public class YoutubeVideo  implements Comparable<YoutubeVideo>{
 		 * valor positivo si video1 tiene más likes que video2. */
 		public int compare(YoutubeVideo video1, YoutubeVideo video2) 
 		{
-			return video1.getLikes()-video2.getLikes();
+			return video1.getViews()-video2.getViews();
+		}
+	}
+	
+	public static class ComparadorXViews implements Comparator<YoutubeVideo> {
+		/** Comparador alterno de acuerdo al número de likes
+		 * @return valor 0 si video1 y video2 tiene los mismos likes.
+		 * valor negativo si video1 tiene menos likes que video2.
+		 * valor positivo si video1 tiene más likes que video2. */
+		public int compare(YoutubeVideo video1, YoutubeVideo video2) 
+		{
+			return video1.getViews()-video2.getViews();
 		}
 	}
 }

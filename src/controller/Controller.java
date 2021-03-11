@@ -37,12 +37,18 @@ public class Controller {
 				case 1:
 					view.printMessage("Cargando en arreglo dinamico ");
 					modelo.cargarVideosDinamico(); 
-					int sizeDinamico = modelo.darVideosDinamico().size();
-					view.printMessage("Cantidad de videos cargados en el arreglo dinamico: " + sizeDinamico);
+					modelo.cargarCategorias();
+					view.printMessage("ya se cargaron los datos");
+					break;
 					
 			   case 2:
-				   view.printMessage("las categorias son ");
-				   modelo.cargarCategorias();
+				   view.printMessage("elija pais ");
+				   String pais= lector.next();
+				   view.printMessage("elija categoria");
+				   String categoria= lector.next();
+				   view.printMessage("cuantos videos desea consultar?");
+				   int cantidad = lector.nextInt();
+				   modelo.requerimiento1(pais, categoria, cantidad);
 			}
 		}	
 	}	

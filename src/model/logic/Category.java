@@ -1,6 +1,8 @@
 package model.logic;
 
-public class Category {
+import java.util.Comparator;
+
+public class Category implements Comparable<Category>{
 	private String category;
 	private int id;
 	
@@ -18,5 +20,11 @@ public class Category {
 	public int darId()
 	{
 		return id;
+	}
+
+	@Override
+	public int compareTo(Category o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
