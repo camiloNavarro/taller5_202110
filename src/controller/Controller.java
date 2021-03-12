@@ -31,85 +31,92 @@ public class Controller {
 		boolean fin = false;
 
 		while( !fin ){
-			view.printMenu();
 
-			int option = lector.nextInt();
-			switch(option){
+			//Menu para escoger la representacion
+			view.printMenuCarga();
+			int optionCarga = lector.nextInt();
+			switch (optionCarga) {
 			case 1:
-				//Menu para escoger la representacion
-				view.printMenuCarga();
-				int optionCarga = lector.nextInt();
-				switch (optionCarga) {
-				case 1:
-					view.printMessage("Cargando en arreglo dinamico ");
-					modelo.cargarVideosDinamico(); 
-					modelo.cargarCategorias();
-					int sizeDinamico = modelo.darVideosDinamico().size();
-					view.printMessage("Cantidad de videos cargados en el arreglo dinamico: " + sizeDinamico);
-					String infoPrimerCargado = modelo.getInfoFirst();
-					view.printMessage("Informacion general del primer video cargado: \n" + infoPrimerCargado);
-					view.printMessage("Lista de las categorias: ");
-					for (int i = 1; i <= modelo.darCategoriasVideos().size(); i++)
-					{
-						String categoryID = modelo.darCategoriasVideos().getElement(i).getCategoryID();
-						String categoryName = modelo.darCategoriasVideos().getElement(i).getCategoryName();
+				view.printMessage("Cargando en arreglo dinamico ");
+				modelo.cargarVideosDinamico(); 
+				modelo.cargarCategorias();
+				int sizeDinamico = modelo.darVideosDinamico().size();
+				view.printMessage("Cantidad de videos cargados en el arreglo dinamico: " + sizeDinamico);
+				modelo.getInfoFirst();
+				view.printMessage("Lista de las categorias: ");
+				for (int i = 1; i <= modelo.darCategoriasVideos().size(); i++)
+				{
+					String categoryID = modelo.darCategoriasVideos().getElement(i).getCategoryID();
+					String categoryName = modelo.darCategoriasVideos().getElement(i).getCategoryName();
 
-						view.printMessage(categoryID + "|||" + categoryName);
-					}
-
-					view.printMenuRequerimientos();
-					int optionReq = lector.nextInt();
-					switch (optionReq){
-					case 1:
-						view.printMessage("Sobre cual categoria desea aplicar el requerimiento?");
-						String categoryNameR1 = lector.next();
-						view.printMessage("Sobre cual pais desea aplicar el requerimiento?");
-						String countryR1 = lector.next();
-						view.printMessage("Cuantos videos con el mayor numero de reproducciones desea tener?");
-						int numVideos = lector.nextInt();
-						ILista<YoutubeVideo> subListaPaisCategoria = modelo.Req1(categoryNameR1, countryR1);
-						view.printMessage("Los " +numVideos+ " videos tendencia en "+countryR1+ " con mas views de la categoria "+categoryNameR1+" son:");
-						for (int i = 1; i <= numVideos; i++)
-						{
-							String title = subListaPaisCategoria.getElement(i).getTitle();
-							String trendingDate = subListaPaisCategoria.getElement(i).getTrendingDate();
-							String channelTitle = subListaPaisCategoria.getElement(i).getChannelTitle();
-							String publishTime = subListaPaisCategoria.getElement(i).getPublishTime();
-							int views = subListaPaisCategoria.getElement(i).getViews();
-							int likes = subListaPaisCategoria.getElement(i).getLikes();
-							int dislikes = subListaPaisCategoria.getElement(i).getDislikes();
-							
-							view.printMessage(title + "|||"+ trendingDate + "|||" + channelTitle + "|||"+ publishTime + "|||"+ views + "|||"+ likes + "|||"+ dislikes);
-						}
-						break;
-					case 2:
-						view.printMessage("Sobre cual pais desea aplicar el requerimiento?");
-						String countryR2 = lector.next();
-						String datosR2 = (modelo.Req2(countryR2));
-						view.printMessage("El video con mas dias como tendencia en "+ countryR2 + " es:");
-						view.printMessage(datosR2);
-						break;
-					case 3:
-						view.printMessage("Sobre cual categoria desea aplicar el requerimiento?");
-						String categoryNameR3 = lector.next();
-						String datosR3 = (modelo.Req3(categoryNameR3));
-						view.printMessage("El video con mas dias como tendencia segun la categoria "+ categoryNameR3 + " es:");
-						view.printMessage(datosR3);
-						break;
-					case 4:
-						
-					case 5:
-						fin = true;
-						break;
-					}
+					view.printMessage(categoryID + "|||" + categoryName);
 				}
-			case 2:
+
+				view.printMenuRequerimientos();
+				int optionReq = lector.nextInt();
+				switch (optionReq){
+				case 1:
+					view.printMessage("Sobre cual categoria desea aplicar el requerimiento?");
+					String categoryNameR1 = lector.next();
+					view.printMessage("Sobre cual pais desea aplicar el requerimiento?");
+					String countryR1 = lector.next();
+					view.printMessage("Cuantos videos con el mayor numero de reproducciones desea tener?");
+					int numVideos = lector.nextInt();
+					ILista<YoutubeVideo> subListaPaisCategoria = modelo.Req1(categoryNameR1, countryR1);
+					view.printMessage("Los " +numVideos+ " videos tendencia en "+countryR1+ " con mas views de la categoria "+categoryNameR1+" son:");
+					for (int i = 1; i <= numVideos; i++)
+					{
+						view.printMessage("-----------------------------------------" );
+						view.printMessage("titulo: " +subListaPaisCategoria.getElement(i).getTitle());
+						view.printMessage("canal: " +subListaPaisCategoria.getElement(i).getTrendingDate());
+						view.printMessage("publish time: " +subListaPaisCategoria.getElement(i).getChannelTitle());
+						view.printMessage("views: " +subListaPaisCategoria.getElement(i).getPublishTime());
+						view.printMessage("likes: " +subListaPaisCategoria.getElement(i).getViews());
+						view.printMessage("dislikes: " +subListaPaisCategoria.getElement(i).getLikes());
+						view.printMessage("tags: " +subListaPaisCategoria.getElement(i).getDislikes());
+					}
+					break;
+				case 2:
+					view.printMessage("Sobre cual pais desea aplicar el requerimiento?");
+					String countryR2 = lector.next();
+					modelo.Req2(countryR2);
+					break;
+				case 3:
+					view.printMessage("Sobre cual categoria desea aplicar el requerimiento?");
+					String categoryNameR3 = lector.next();
+					modelo.Req3(categoryNameR3);
+					break;
+				case 4:
+					view.printMessage("Sobre cual pais desea aplicar el requerimiento?");
+					String countryR4 = lector.next();
+					view.printMessage("Sobre cual tag desea aplicar el requerimiento?");
+					String tagR4 = lector.next();
+					view.printMessage("Cuantos videos con el mayor numero de likes desea tener?");
+					int numVideosR4 = lector.nextInt();
+					ILista<YoutubeVideo> subListaPaisTag = modelo.Req4(countryR4, tagR4);
+					view.printMessage("Los " +numVideosR4+ " videos de "+countryR4+ " con mas likes y con el tag  "+ tagR4 +" son:");
+					for (int i = 1; i <= numVideosR4; i++)
+					{
+						view.printMessage("-----------------------------------------" );
+						view.printMessage("titulo: " +subListaPaisTag.getElement(i).getTitle());
+						view.printMessage("canal: " +subListaPaisTag.getElement(i).getChannelTitle());
+						view.printMessage("publish time: " +subListaPaisTag.getElement(i).getPublishTime());
+						view.printMessage("views: " +subListaPaisTag.getElement(i).getViews());
+						view.printMessage("likes: " +subListaPaisTag.getElement(i).getLikes());
+						view.printMessage("dislikes: " +subListaPaisTag.getElement(i).getDislikes());
+						view.printMessage("tags: " +subListaPaisTag.getElement(i).getTags());
+					}
+					break;
+				case 5:
+					fin = true;
+					break;
+				}
+			case 2: 
 				view.printMessage("--------- \n Hasta pronto !! \n---------"); 
 				lector.close();
 				fin = true;
 				break;
 			}
 		}
-
 	}	
 }

@@ -52,10 +52,18 @@ public class Modelo {
 		return categoriasVideos;
 	}
 
-	public String getInfoFirst()
+	public void getInfoFirst()
 	{
 		YoutubeVideo firstVideo = videosDinamico.getElement(1);
-		return firstVideo.getTitle() + "|||" + firstVideo.getChannelTitle() + "|||" + firstVideo.getTrendingDate() + "|||" + firstVideo.getCountry() + "|||" + firstVideo.getViews() + "|||" + firstVideo.getLikes() + "|||" + firstVideo.getDislikes();
+		
+		System.out.println("El primer video cargado fue:");
+		System.out.println("titulo: "+firstVideo.getTitle());
+		System.out.println("canal: "+firstVideo.getChannelTitle());
+		System.out.println("dias en tendencia: "+firstVideo.getTrendingDate());
+		System.out.println("country: "+firstVideo.getCountry());
+		System.out.println("views: "+firstVideo.getViews());
+		System.out.println("likes: "+firstVideo.getLikes());
+		System.out.println("dislikes: "+firstVideo.getDislikes());
 	}
 
 	public void cargarCategorias ()
@@ -164,36 +172,44 @@ public class Modelo {
 		Comparator<YoutubeVideo> comparadorXTitulo = new YoutubeVideo.ComparadorXTitulo();
 		Ordenamiento<YoutubeVideo> algsOrdenamientoVideos = new Ordenamiento<YoutubeVideo>();
 
-		algsOrdenamientoVideos.ordenarQuickSort(lista, comparadorXTitulo, ascendente);
+		algsOrdenamientoVideos.ordenarMergeSort(lista, comparadorXTitulo, ascendente);
 	}
-	
+
 	public void ordenarListaLikes (ILista <YoutubeVideo> lista, boolean ascendente)
 	{
 		Comparator<YoutubeVideo> comparadorXLikes = new YoutubeVideo.ComparadorXLikes();
 		Ordenamiento<YoutubeVideo> algsOrdenamientoVideos = new Ordenamiento<YoutubeVideo>();
 
-		algsOrdenamientoVideos.ordenarQuickSort(lista, comparadorXLikes, ascendente);
+		algsOrdenamientoVideos.ordenarMergeSort(lista, comparadorXLikes, ascendente);
+	}
+
+	public void ordenarListaViews (ILista <YoutubeVideo> lista, boolean ascendente)
+	{
+		Comparator<YoutubeVideo> comparadorXViews = new YoutubeVideo.ComparadorXViews();
+		Ordenamiento<YoutubeVideo> algsOrdenamientoVideos = new Ordenamiento<YoutubeVideo>();
+
+		algsOrdenamientoVideos.ordenarMergeSort(lista, comparadorXViews, ascendente);
 	}
 
 	public ILista<YoutubeVideo> Req1 (String categoryName, String country)
 	{
 		String categoryID = buscarCategoryID(categoryName);
 		ILista<YoutubeVideo> subListaPaisCategoria = subListaPorPaisCategoria (darVideosDinamico(), categoryID, country);
-		ordenarListaLikes (subListaPaisCategoria, false);
-		
+		ordenarListaViews (subListaPaisCategoria, false);
+
 		return subListaPaisCategoria;
 	}
 
-	public String Req2 (String country)
+	public void Req2 (String country)
 	{
 		ILista<YoutubeVideo> subListaPais = subListaPorPais (darVideosDinamico(), country);
 		ordenarListaNombre(subListaPais, true);
-		
+
 		YoutubeVideo masRepetido = null;
 		YoutubeVideo ultimoContado = null;
 		int cuentaMaxima = 0;
 		int ultimaCuenta = 0;
-		for (int i = 1; i < subListaPais.size(); i++) 
+		for (int i = 1; i <= subListaPais.size(); i++) 
 		{
 			YoutubeVideo actual = subListaPais.getElement(i);
 			if(ultimoContado == null)
@@ -211,10 +227,14 @@ public class Modelo {
 			}
 			ultimoContado = actual;
 		}
-		return masRepetido.getTitle() + "|||" + masRepetido.getChannelTitle() + "|||" + masRepetido.getCountry() + "|||" + cuentaMaxima;
+		System.out.println("El video con mas dias como tendencia en "+ country + " es:");
+		System.out.println("titulo: "+masRepetido.getTitle());
+		System.out.println("canal: "+masRepetido.getChannelTitle());
+		System.out.println("country: "+masRepetido.getCountry());
+		System.out.println("dias en tendencia: "+cuentaMaxima);
 	}
 
-	public String Req3 (String categoryName)
+	public void Req3 (String categoryName)
 	{
 		String IDbuscado = buscarCategoryID(categoryName);
 		ILista<YoutubeVideo> subListaCategoria = subListaPorCategoria (darVideosDinamico(), IDbuscado);
@@ -243,7 +263,20 @@ public class Modelo {
 			}
 			ultimoContado = actual;
 		}
-		return masRepetido.getTitle() + "|||" + masRepetido.getChannelTitle() + "|||" + masRepetido.getCategoryID() + "|||" + cuentaMaxima; 
+		
+		System.out.println("El video con mas dias como tendencia segun la categoria "+ categoryName + " es:");
+		System.out.println("titulo: "+masRepetido.getTitle());
+		System.out.println("canal: "+masRepetido.getChannelTitle());
+		System.out.println("category ID: "+masRepetido.getCategoryID());
+		System.out.println("dias en tendencia: "+cuentaMaxima);
+	}
+
+	public ILista<YoutubeVideo> Req4 (String country, String tag)
+	{
+		ILista<YoutubeVideo> subListaPaisTag = subListaPorPaisTag (darVideosDinamico(),tag, country);
+		ordenarListaLikes (subListaPaisTag, false);
+
+		return subListaPaisTag;
 	}
 
 	public String buscarCategoryID (String categoryName)
@@ -298,7 +331,7 @@ public class Modelo {
 		}
 		return subListaCategoria;
 	}
-	
+
 	public ILista<YoutubeVideo> subListaPorPaisCategoria (ILista<YoutubeVideo> lista,String categoryID, String country )
 	{
 		ILista <YoutubeVideo> subListaPaisCategoria = new ArregloDinamico <YoutubeVideo>(1);
@@ -319,4 +352,18 @@ public class Modelo {
 		return subListaPaisCategoria;
 	}
 
+	public ILista <YoutubeVideo> subListaPorPaisTag (ILista<YoutubeVideo> lista,String tag, String country )
+	{
+		ILista <YoutubeVideo> subListaPaisTag = new ArregloDinamico <YoutubeVideo>(1);
+
+		for (int i = 1 ; i <= lista.size(); i ++)
+		{
+			YoutubeVideo actual = lista.getElement(i);
+			if(actual.getCountry().compareTo(country) == 0 && actual.getTags().contains(tag))
+			{
+				subListaPaisTag.addLast(actual);
+			}
+		}
+		return subListaPaisTag;
+	}
 }

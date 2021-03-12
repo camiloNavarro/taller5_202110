@@ -111,6 +111,12 @@ public class YoutubeVideo  implements Comparable<YoutubeVideo>{
 	{
 		return country;
 	}
+	
+	public String[] getSeparatedTags()
+	{
+		String[] separatedTags = tags.split("\"\\|\"");
+		return separatedTags;
+	}
 
 	/** Comparación natural de acuerdo a algún atributo con identificación única
 	 * @return valor 0 si this y otro son iguales. Numero negativo si this es menor a otro.
@@ -130,6 +136,19 @@ public class YoutubeVideo  implements Comparable<YoutubeVideo>{
 		public int compare(YoutubeVideo video1, YoutubeVideo video2) 
 		{
 			return video1.getLikes()-video2.getLikes();
+		}
+	}
+	
+	/** Comparador alterno de 2 videos por número de views*/
+	
+	public static class ComparadorXViews implements Comparator<YoutubeVideo> {
+		/** Comparador alterno de acuerdo al número de views
+		 * @return valor 0 si video1 y video2 tiene los mismos views.
+		 * valor negativo si video1 tiene menos views que video2.
+		 * valor positivo si video1 tiene más views que video2. */
+		public int compare(YoutubeVideo video1, YoutubeVideo video2) 
+		{
+			return video1.getViews()-video2.getViews();
 		}
 	}
 	
