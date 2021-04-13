@@ -9,6 +9,7 @@ import org.apache.commons.csv.CSVRecord;
 
 import model.data_structures.ArregloDinamico;
 import model.data_structures.ILista;
+import model.data_structures.SeparateChainingHashST;
 import model.utils.Ordenamiento;
 
 /**
@@ -191,13 +192,34 @@ public class Modelo {
 		algsOrdenamientoVideos.ordenarMergeSort(lista, comparadorXViews, ascendente);
 	}
 
-	public ILista<YoutubeVideo> Req1 (String categoryName, String country)
+	public void Req1 (String categoryName, String country, int n)
 	{
-		String categoryID = buscarCategoryID(categoryName);
-		ILista<YoutubeVideo> subListaPaisCategoria = subListaPorPaisCategoria (darVideosDinamico(), categoryID, country);
-		ordenarListaViews (subListaPaisCategoria, false);
-
-		return subListaPaisCategoria;
+		String llave = country+"-"+categoryName;
+		SeparateChainingHashST<String, ArregloDinamico<YoutubeVideo>> hasht = new SeparateChainingHashST();
+		for(int i =0; i<videosDinamico.size();i++)
+		{
+			ArregloDinamico<YoutubeVideo> videos = new ArregloDinamico <YoutubeVideo>(10) ;
+			String actual =videosDinamico.getElement(i).getCountry()+"-"+getCategory(videosDinamico.getElement(i).getCategoryID());
+			if(hasht.contains(actual)==false)
+			{
+				for(int j =i; j<videosDinamico.size();j++)
+				{
+					String comparador = videosDinamico.getElement(j).getCountry()+"-"+getCategory(videosDinamico.getElement(j).getCategoryID());
+					if(comparador.compareToIgnoreCase(actual)==0)
+					{
+						videos.addLast(videosDinamico.getElement(j));
+					}
+				}
+				hasht.put(actual, videos);
+			}
+		}
+		
+		ArregloDinamico<YoutubeVideo> r=(ArregloDinamico<YoutubeVideo>) hasht.get(llave);
+		ordenarListaViews(r, false);
+		for(int i =0;i<n;i++)
+		{
+			System.out.println(r.getElement(i).getTitle());
+		}
 	}
 
 	public void Req2 (String country)
@@ -295,6 +317,8 @@ public class Modelo {
 
 		return IDbuscado;
 	}
+	
+
 
 	public ILista<YoutubeVideo> subListaPorPais (ILista<YoutubeVideo> lista, String country)
 	{

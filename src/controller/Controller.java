@@ -62,19 +62,7 @@ public class Controller {
 					String countryR1 = lector.next();
 					view.printMessage("Cuantos videos con el mayor numero de reproducciones desea tener?");
 					int numVideos = lector.nextInt();
-					ILista<YoutubeVideo> subListaPaisCategoria = modelo.Req1(categoryNameR1, countryR1);
-					view.printMessage("Los " +numVideos+ " videos tendencia en "+countryR1+ " con mas views de la categoria "+categoryNameR1+" son:");
-					for (int i = 1; i <= numVideos; i++)
-					{
-						view.printMessage("-----------------------------------------" );
-						view.printMessage("titulo: " +subListaPaisCategoria.getElement(i).getTitle());
-						view.printMessage("canal: " +subListaPaisCategoria.getElement(i).getTrendingDate());
-						view.printMessage("publish time: " +subListaPaisCategoria.getElement(i).getChannelTitle());
-						view.printMessage("views: " +subListaPaisCategoria.getElement(i).getPublishTime());
-						view.printMessage("likes: " +subListaPaisCategoria.getElement(i).getViews());
-						view.printMessage("dislikes: " +subListaPaisCategoria.getElement(i).getLikes());
-						view.printMessage("tags: " +subListaPaisCategoria.getElement(i).getDislikes());
-					}
+					modelo.Req1(categoryNameR1, countryR1, numVideos);
 					break;
 				case 2:
 					view.printMessage("Sobre cual pais desea aplicar el requerimiento?");
